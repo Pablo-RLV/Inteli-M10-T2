@@ -1,7 +1,7 @@
 import sys
 import requests as http_request
 from database.database import db
-from flask import Flask, make_response, jsonify, request, render_template, redirect, abort
+from flask import Flask, make_response, jsonify, request
 from database.models import User, Notes
 from flask_jwt_extended import JWTManager, set_access_cookies, create_access_token, jwt_required
 
@@ -10,6 +10,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 db.init_app(app)
 app.config["JWT_SECRET_KEY"] = "goku-vs-vegeta" 
 app.config['JWT_TOKEN_LOCATION'] = ['cookies']
+app.config['JWT_COOKIE_CSRF_PROTECT'] = False
 jwt = JWTManager(app)
 
 if len(sys.argv) > 1 and sys.argv[1] == 'create_db':
@@ -28,17 +29,9 @@ def create_token():
     access_token = create_access_token(identity=user.id)
     return jsonify({ "token": access_token, "user_id": user.id })
 
-@app.route("/error", methods=["GET"])
-def error():
-    return render_template("error.html")
-
 @app.route("/")
 def user_login():
-    return render_template("login.html")
-
-@app.route("/user-register", methods=["GET"])
-def user_register():
-    return render_template("register.html")
+    return "Hello, World!"
 
 @app.route("/users", methods=["GET"])
 def get_users():
@@ -84,59 +77,50 @@ def login():
     username = request.form.get("username", None)
     password = request.form.get("password", None)
     if username is None or password is None:
-        return render_template("error.html", message="Bad username or password")
+        return "Bad username or password"
     token_data = http_request.post("http://localhost:5000/token", json={"username": username, "password": password})
     if token_data.status_code != 200:
-        return render_template("error.html", message="Bad username or password")
-    response = make_response(render_template("content.html"))
+        return "Bad username or password"
+    response = make_response("Login successful")
     set_access_cookies(response, token_data.json()['token'])
     return response
 
-@app.route('/home', methods=["GET"])
+@app.route('/notes', methods=["GET"])
 @jwt_required()
-def RetrieveList():
+def get_notes():
     notes = Notes.query.all()
-    return render_template('home.html',infos=notes)
+    return_notes = []
+    for note in notes:
+        return_notes.append(note.serialize())
+    return jsonify(return_notes)
 
-@app.route('/create' , methods = ['GET','POST'])
+@app.route('/notes' , methods = ['POST'])
 @jwt_required()
-def create():
-    if request.method == 'GET':
-        return render_template('create.html')
-
-    if request.method == 'POST':
-        text = request.form['text']
-        info = Notes(text=text)
-        db.session.add(info)
-        db.session.commit()
-        return jsonify(text.serialize())
-
-@app.route('/update/<int:id>',methods = ['GET','POST'])
-@jwt_required()
-def update(id):
-    info = Notes.query.filter_by(id=id).first()
-    if request.method == 'POST':
-        if info:
-            db.session.delete(info)
-            db.session.commit()
-            text = request.form['text']
-            info = Notes(text=text)
-            db.session.add(info)
-            db.session.commit()
-            return jsonify(text.serialize())
-        return f"info with id = {id} Does not exist"
-    return render_template('update.html', info = info)
-
-@app.route('/delete/<int:id>', methods=['DELETE'])
-@jwt_required()
-def delete(id):
-    info = Notes.query.filter_by(id).first()
-    db.session.delete(info)
+def create_note():
+    text = request.form.get("text", None)
+    note = Notes(text=text)
+    db.session.add(note)
     db.session.commit()
-    return jsonify(info.serialize())
+    return jsonify(note.serialize())
 
-
-@app.route('/try' , methods = ['POST'])
+@app.route("/notes/<int:id>", methods=["GET"])
+def get_note(id):
+    note = Notes.query.get(id)
+    return jsonify(note.serialize())
+    
+@app.route('/notes/<int:id>',methods = ['PUT'])
 @jwt_required()
-def trying():
-        return "oiiiii"
+def update_note(id):
+    new_text = request.form.get("text", None)
+    note = Notes.query.get(id)
+    note.text = new_text
+    db.session.commit()
+    return jsonify(note.serialize())
+
+@app.route('/notes/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_note(id):
+    note = Notes.query.get(id)
+    db.session.delete(note)
+    db.session.commit()
+    return jsonify(note.serialize())
