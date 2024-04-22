@@ -1,0 +1,12 @@
+include
+bin
+lib
+lib64
+var
+Include
+Lib
+Scripts
+pyvenv.cfg
+__pycache__
+instance
+var
