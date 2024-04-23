@@ -35,5 +35,5 @@ def update_user(id):
 
 @users_routes.route("/users/<int:id>", methods=["DELETE"])
 def delete_user(id):
-    result = delete_data_by_id(User, id, db)
+    result = delete_data_by_id(User, db, id)
     return jsonify(result)

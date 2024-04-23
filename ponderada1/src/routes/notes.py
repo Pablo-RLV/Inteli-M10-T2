@@ -37,5 +37,5 @@ def update_note(id):
 @notes_routes.route('/notes/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_note(id):
-    result = delete_data_by_id(Notes, id, db)
+    result = delete_data_by_id(Notes, db, id)
     return jsonify(result)
