@@ -20,7 +20,6 @@ def create_user():
     result = create_data(User, db, username=username, password=password)
     return result
 
-
 @users_routes.route("/users/<int:id>", methods=["GET"])
 def get_user(id):
     result = get_data_by_id(User, id)

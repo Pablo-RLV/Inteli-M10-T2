@@ -7,7 +7,10 @@ from routes.users import users_routes
 from routes.auth import auth_routes
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/postgres'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_USERNAME'] = 'postgres'
+app.config['SQLALCHEMY_PASSWORD'] = 'postgres'
 db.init_app(app)
 app.config["JWT_SECRET_KEY"] = "goku-vs-vegeta" 
 app.config['JWT_TOKEN_LOCATION'] = ['cookies']
