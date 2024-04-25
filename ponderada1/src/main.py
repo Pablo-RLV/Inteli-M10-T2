@@ -7,7 +7,7 @@ from routes.users import users_routes
 from routes.auth import auth_routes
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@db:5432/postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_USERNAME'] = 'postgres'
 app.config['SQLALCHEMY_PASSWORD'] = 'postgres'
@@ -32,4 +32,4 @@ def hello():
     return "Hello, World!"
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
