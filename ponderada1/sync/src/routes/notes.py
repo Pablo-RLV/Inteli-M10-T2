@@ -23,6 +23,7 @@ def create_note():
     return result
 
 @notes_routes.route("/notes/<int:id>", methods=["GET"])
+@jwt_required()
 def get_note(id):
     result = get_data_by_id(Notes, id)
     return jsonify(result)

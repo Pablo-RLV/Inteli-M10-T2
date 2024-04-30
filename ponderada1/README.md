@@ -1,4 +1,20 @@
-# Implementação de uma API - Desenvolver uma API simples, como um sistema de gerenciamento de tarefas (to-do list) com nível de maturidade 2.
+# Implementação de uma API - Desenvolver uma API simples, como um sistema de gerenciamento de tarefas (to-do list) com nível de maturidade 2
+
+## Descrição
+
+O projeto consiste em desenvolver uma API simples, como um sistema de gerenciamento de tarefas (to-do list) com nível de maturidade 2.
+
+Foi criada uma API RESTful em Flask, em uma estrutura síncrona e também assíncrona, utilizando o SQLAlchemy para a persistência dos dados.
+
+## Execução
+
+Para executar o projeto, é necessário ter o docker e docker-compose instalados. Para isso, siga as instruções do site oficial do [Docker](https://docs.docker.com/get-docker/).
+
+Após a instalação, navegue até a pasta `build` do projeto e execute o comando:
+
+```bash
+docker-compose up
+```
 
 ## Demonstração Insomnia
 

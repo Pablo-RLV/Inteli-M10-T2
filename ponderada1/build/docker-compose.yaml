@@ -20,11 +20,19 @@ services:
       ports:
         - 8080:8080
 
-  api:
-      build: ../src
+  sync_api:
+      build: ../sync/src
       restart: always
       ports:
         - 5000:5000
+      depends_on:
+        - db
+  
+  async_api:
+      build: ../async/src
+      restart: always
+      ports:
+        - 5001:5001
       depends_on:
         - db
 

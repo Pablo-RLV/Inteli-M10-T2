@@ -5,16 +5,11 @@ from flask_jwt_extended import JWTManager
 from routes.notes import notes_routes
 from routes.users import users_routes
 from routes.auth import auth_routes
+from configuration.config import configure_app
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@db:5432/postgres'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_USERNAME'] = 'postgres'
-app.config['SQLALCHEMY_PASSWORD'] = 'postgres'
+configure_app(app)
 db.init_app(app)
-app.config["JWT_SECRET_KEY"] = "goku-vs-vegeta" 
-app.config['JWT_TOKEN_LOCATION'] = ['cookies']
-app.config['JWT_COOKIE_CSRF_PROTECT'] = False
 jwt = JWTManager(app)
 
 app.register_blueprint(users_routes)
