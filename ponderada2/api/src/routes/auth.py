@@ -22,7 +22,7 @@ def login():
     password = request.form.get("password", None)
     if username is None or password is None:
         return "Bad username or password"
-    token_data = http_request.post("http://localhost:5000/token", json={"username": username, "password": password})
+    token_data = http_request.post("http://0.0.0.0:5000/token", json={"username": username, "password": password})
     if token_data.status_code != 200:
         return "Bad username or password"
     response = make_response("Login successful")

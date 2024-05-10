@@ -12,6 +12,10 @@ configure_app(app)
 db.init_app(app)
 jwt = JWTManager(app)
 
+#create tables if they don't exist
+with app.app_context():
+    db.create_all()
+
 app.register_blueprint(users_routes)
 app.register_blueprint(notes_routes)
 app.register_blueprint(auth_routes)
