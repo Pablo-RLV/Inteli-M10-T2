@@ -18,7 +18,7 @@ def get_notes():
 @notes_routes.route('/notes' , methods = ['POST'])
 @jwt_required()
 def create_note():
-    text = request.form.get("text", None)
+    text = request.json.get("text", None)
     result = create_data(Notes, db, text=text)
     return result
 
@@ -31,7 +31,7 @@ def get_note(id):
 @notes_routes.route('/notes/<int:id>',methods = ['PUT'])
 @jwt_required()
 def update_note(id):
-    new_text = request.form.get("text", None)
+    new_text = request.json.get("text", None)
     result = update_data(Notes, db, id, text=new_text)
     return jsonify(result)
 

@@ -15,8 +15,8 @@ def get_users():
 
 @users_routes.route("/users", methods=["POST"])
 def create_user():
-    username = request.form.get("username", None)
-    password = request.form.get("password", None)
+    username = request.json.get("username", None)
+    password = request.json.get("password", None)
     result = create_data(User, db, username=username, password=password)
     return result
 
@@ -27,8 +27,8 @@ def get_user(id):
 
 @users_routes.route("/users/<int:id>", methods=["PUT"])
 def update_user(id):
-    new_username = request.form.get("username", None)
-    new_password = request.form.get("password", None)
+    new_username = request.json.get("username", None)
+    new_password = request.json.get("password", None)
     result = update_data(User, db, id, username=new_username, password=new_password)
     return jsonify(result)
 

@@ -18,8 +18,8 @@ def create_token():
 
 @auth_routes.route("/login", methods=["POST"])
 def login():
-    username = request.form.get("username", None)
-    password = request.form.get("password", None)
+    username = request.json.get("username", None)
+    password = request.json.get("password", None)
     if username is None or password is None:
         return "Bad username or password"
     token_data = http_request.post("http://0.0.0.0:5000/token", json={"username": username, "password": password})
