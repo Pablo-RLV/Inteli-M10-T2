@@ -25,3 +25,5 @@ flutter run
 ## Demonstração
 
 Para a demonstração, foi capturado um vídeo da execução do projeto. O vídeo está disponível no seguinte link:
+
+https://github.com/Pablo-RLV/Inteli-M10-T2/assets/99209107/14013464-d7dd-43c2-b3d2-eb1655af3780
