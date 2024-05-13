@@ -6,9 +6,17 @@ Essa sessão tem o intuito de criar uma interface mobile básica para a integra�
 
 ## Instruções para execução
 
+Para executar o projeto, é necessário ter o docker e o docker-compose instalados no computador. Caso não tenha, siga as instruções disponíveis no site oficial do [Docker](https://docs.docker.com/get-docker/).
+
+Após a instalação, dentro da pasta `build`, execute o seguinte comando para subir o container da API REST:
+
+```bash
+docker-compose up
+```
+
 Para fazer utilização do projeto, é necessário ter um emulador ou um dispositivo físico conectado ao computador.
 
-Após cumprir esse requisito, execute o seguinte comando:
+Após cumprir esse requisito, execute o seguinte comando, no diretório `mobile`, para rodar a aplicação:
 
 ```bash
 flutter run
@@ -16,12 +24,4 @@ flutter run
 
 ## Demonstração
 
-Para a demonstração, foram tiradas capturas de tela da aplicação em execução. As imagens estão disponíveis abaixo:
-
-### 1. Tela inicial
-
-![Tela inicial](./assets/Screenshot%20from%202024-05-06%2001-16-08.png)
-
-### 2. Tela de adição de nova anotação
-
-![Tela de adição de nova anotação](./assets/Screenshot%20from%202024-05-06%2001-16-30.png)
+Para a demonstração, foi capturado um vídeo da execução do projeto. O vídeo está disponível no seguinte link:
