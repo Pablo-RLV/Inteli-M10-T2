@@ -261,9 +261,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 130,
                     child: Column(
                       children: [
-                        Text(
-                            "[${all_notes[index]['id']}] ${all_notes[index]['username']}"),
-                        Text("${all_notes[index]["password"]}"),
+                        Text("Username: ${all_notes[index]['username']}"),
+                        Text("Password: ${all_notes[index]["password"]}"),
                         Align(
                             alignment: Alignment.bottomRight,
                             child: Row(
