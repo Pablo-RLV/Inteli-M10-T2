@@ -2,9 +2,11 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:convert';
 
-void main() {
+void main() async {
+  await dotenv.load(fileName: "lib/.env");
   runApp(const MyApp());
 }
 
@@ -49,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void requestCaller() async {
-    var resposta = await http.post(Uri.parse("http://10.254.19.210:5000/users"),
+    var resposta = await http.post(Uri.parse("http://${dotenv.env['IP']}:5000/users"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -66,7 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void postEditor(id) async {
-    var resposta = await http.put(Uri.parse("http://10.254.19.210:5000/users/${id}"),
+    var resposta = await http.put(
+        Uri.parse("http://${dotenv.env['IP']}:5000/users/${id}"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -84,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void postDeleter(id) async {
     var resposta = await http.delete(
-      Uri.parse("http://10.254.19.210:5000/users/${id}"),
+      Uri.parse("http://${dotenv.env['IP']}:5000/users/${id}"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -98,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void getAllPosts() async {
-    var resposta = await http.get(Uri.parse("http://10.254.19.210:5000/users"));
+    var resposta = await http.get(Uri.parse("http://${dotenv.env['IP']}:5000/users"));
 
     var processedanswer = jsonDecode(resposta.body);
     print(resposta.body);
@@ -125,8 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
           TextField(
             controller: _controllerdata,
             decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password'),
+                border: OutlineInputBorder(), labelText: 'Password'),
           ),
           Row(
             children: [
@@ -167,8 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
           TextField(
             controller: _controllercontentedit,
             decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password'),
+                border: OutlineInputBorder(), labelText: 'Password'),
           ),
           Row(
             children: [
@@ -232,18 +233,15 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: Column(
           verticalDirection: VerticalDirection.down,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text(
-              "Note Book",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 26, height: 2)
-            ),
+            const Text("Note Book",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, fontSize: 26, height: 2)),
             ListView.builder(
                 itemCount: all_notes.length,
                 scrollDirection: Axis.vertical,
@@ -261,7 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 130,
                     child: Column(
                       children: [
-                        Text("Username: ${all_notes[index]['username']}"),
+                        Text("Username: ${all_notes[index]["username"]}"),
                         Text("Password: ${all_notes[index]["password"]}"),
                         Align(
                             alignment: Alignment.bottomRight,
