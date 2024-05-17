@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: FLASK API PROVA1
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+    description: Development server
+
+components:
+  schemas:
+    Pedidos:
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        email:
+          type: string
+        descricao:
+          type: string
+      required:
+        - nome
+        - email
+        - descricao
+
+paths:
+
+  /pedidos:
+
+    get:
+      summary: Retrieves all pedidos
+      responses:
+        200:
+          description: A list of pedidos.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pedidos'
+
+    post:
+      summary: Create a new Pedidos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pedidos'
+      responses:
+        200:
+          description: Pedidos created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedidos'
+
+  /pedidos/{id}:
+    get:
+      summary: Retrieves a Pedidos by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Detailed information of a Pedidos.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedidos'
+        404:
+          description: Pedidos not found.
+
+    put:
+      summary: Update a Pedidos's information
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pedidos'
+      responses:
+        200:
+          description: Pedidos updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedidos'
+        404:
+          description: Pedidos not found.
+
+    delete:
+      summary: Delete a Pedidos by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Pedidos deleted successfully.
+        404:
+          description: Pedidos not found.
+
+  /novo:
+
+    post:
+      summary: Create a new Pedidos, and retrieve his ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pedidos'
+      responses:
+        200:
+          description: Pedidos created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pedidos'
