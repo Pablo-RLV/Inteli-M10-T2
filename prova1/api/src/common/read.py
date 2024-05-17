@@ -7,4 +7,6 @@ def get_all_data(model):
 
 def get_data_by_id(model, id):
     data = model.query.get(id)
+    if data is None:
+        return {"error": "id not found"}
     return data.serialize()

@@ -1,6 +1,8 @@
 def update_data(model, db, id, **kwargs):
-    item = model.query.get(id)
+    data = model.query.get(id)
+    if data is None:
+        return {"error": "id not found"}
     for key, value in kwargs.items():
-        setattr(item, key, value)
+        setattr(data, key, value)
     db.session.commit()
-    return item.serialize()
+    return data.serialize()
