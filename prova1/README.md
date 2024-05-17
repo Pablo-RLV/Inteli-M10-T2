@@ -41,6 +41,18 @@ O projeto está estruturado da seguinte forma:
 
 ## Execução
 
+Primeiramente, é necessário clonar o repositório:
+
+```bash
+git clone https://github.com/Pablo-RLV/Inteli-M10-T2.git
+```
+
+Após clonar o repositório, é necessário entrar na pasta do projeto:
+
+```bash
+cd Inteli-M10-T2/prova1
+```
+
 Para executar a aplicação, é necessário ter o Docker e o Docker Compose instalados. Com essas dependências instaladas, basta executar o seguinte comando:
 
 ```bash
