@@ -1,7 +1,5 @@
-version: '3'
-
 services:
-  db-postgres:
+  db_postgres:
     image: postgres:latest
     container_name: postgres_db
     ports:
@@ -13,7 +11,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  db-mysql:
+  db_mysql:
     image: mysql:latest
     container_name: mysql_db
     ports:
@@ -31,19 +29,27 @@ services:
       ports:
         - 8080:8080
 
-  api-notes:
+  api_notes:
       build: ../api/notes
       ports:
         - 5000:5000
       depends_on:
-        - db-postgres
+        - db_postgres
 
-  api-users:
+  api_users:
       build: ../api/users
       ports:
         - 5001:5001
       depends_on:
-        - db-mysql
+        - db_mysql
+
+  # gateway:
+  #   build: ../gateway
+  #   ports:
+  #     - "8001:80"
+  #   depends_on:
+  #     - api_notes
+  #     - api_users
 
 volumes:
   postgres_data:
