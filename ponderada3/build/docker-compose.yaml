@@ -45,13 +45,16 @@ services:
       depends_on:
         - db_mysql
 
-  # gateway:
-  #   build: ../gateway
-  #   ports:
-  #     - "8001:80"
-  #   depends_on:
-  #     - api_notes
-  #     - api_users
+  gateway:
+    build: ../gateway
+    restart: on-failure
+    volumes:
+      - ./nginx/logs:/var/log/nginx
+    ports:
+      - "8001:80"
+    depends_on:
+      - api_notes
+      - api_users
 
 volumes:
   postgres_data:
