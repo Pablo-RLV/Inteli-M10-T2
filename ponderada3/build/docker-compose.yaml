@@ -31,6 +31,7 @@ services:
 
   api_notes:
       build: ../api/notes
+      restart: on-failure
       ports:
         - 5000:5000
       depends_on:
@@ -38,6 +39,7 @@ services:
 
   api_users:
       build: ../api/users
+      restart: on-failure
       ports:
         - 5001:5001
       depends_on:
