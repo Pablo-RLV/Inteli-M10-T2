@@ -1,4 +1,0 @@
-flask
-Flask-SQLAlchemy
-requests
-mysql-connector-python
