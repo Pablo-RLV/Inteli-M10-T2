@@ -2,16 +2,16 @@
 
 ## Descrição
 
-Essa sessão tem o intuito de criar uma interface mobile básica para a integração com uma API REST, desenvolvida em etapas anteriores do projeto do módulo. Para sua execução, foi utilizado o framework Flutter, integrado com a linguagem de programação Dart.
+Essa sessão tem o intuito de criar uma interface mobile integrada a um backend, que apresenta funcionalidade de login autenticado e filtro de imagem, no caso, remoção de fundo. Para isso, foi utilizado Flutter para o aplicativo, FastAPI para o backend, NGINX para o gateway e Docker para a conteinerização da aplicação.
 
 ## Instruções para execução
 
 Para executar o projeto, é necessário ter o docker e o docker-compose instalados no computador. Caso não tenha, siga as instruções disponíveis no site oficial do [Docker](https://docs.docker.com/get-docker/).
 
-Após a instalação, dentro da pasta `build`, execute o seguinte comando para subir o container da API REST:
+Após a instalação, na raiz do projeto, execute o seguinte comando para subir o backend:
 
 ```bash
-docker-compose up
+docker compose up
 ```
 
 Para fazer utilização do projeto, é necessário ter um emulador ou um dispositivo físico conectado ao computador.
@@ -26,4 +26,4 @@ flutter run
 
 Para a demonstração, foi capturado um vídeo da execução do projeto. O vídeo está disponível no seguinte link:
 
-https://github.com/Pablo-RLV/Inteli-M10-T2/assets/99209107/14013464-d7dd-43c2-b3d2-eb1655af3780
+https://github.com/Pablo-RLV/Inteli-M10-T2/assets/99209107/d56c828f-bede-4fc7-80e7-8a16b0035e58
