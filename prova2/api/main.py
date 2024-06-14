@@ -4,7 +4,7 @@ import uvicorn
 
 app = FastAPI()
 
-logging.basicConfig(filename='app.log', level=logging.WARNING)
+logging.basicConfig(filename='logs/app.log', level=logging.WARNING)
 
 blog_posts = []
 

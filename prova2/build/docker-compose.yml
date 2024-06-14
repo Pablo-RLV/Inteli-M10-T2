@@ -5,6 +5,8 @@ services:
       build: ../api
       ports:
         - 5000:5000
+      volumes:
+        - ../api/logs:/app/logs
 
   gateway:
     build: ../gateway
