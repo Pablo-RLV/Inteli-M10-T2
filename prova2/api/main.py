@@ -1,6 +1,10 @@
+import logging
 from fastapi import FastAPI, HTTPException
+import uvicorn
 
 app = FastAPI()
+
+logging.basicConfig(filename='app.log', level=logging.WARNING)
 
 blog_posts = []
 
@@ -9,8 +13,10 @@ class BlogPost:
         self.id = id
         self.title = title
         self.content = content
+
     def __str__(self) -> str:
         return f'{self.id} - {self.title} - {self.content}'
+
     def to_dict(self):
         return {'id': self.id, 'title': self.title, 'content': self.content}
 
@@ -20,8 +26,10 @@ def create_blog_post(data: dict):
         blog_posts.append(BlogPost(data['id'], data['title'], data['content']))
         return {'status': 'success'}
     except KeyError:
+        logging.error('Invalid request')
         raise HTTPException(status_code=400, detail='Invalid request')
     except Exception as e:
+        logging.error(str(e))
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.get('/blog')
@@ -33,6 +41,7 @@ def get_blog_post(id: int):
     for post in blog_posts:
         if post.id == id:
             return {'post': post.__dict__}
+    logging.warning(f'Post with id {id} not found')
     raise HTTPException(status_code=404, detail='Post not found')
 
 @app.delete('/blog/{id}')
@@ -41,6 +50,7 @@ def delete_blog_post(id: int):
         if post.id == id:
             blog_posts.remove(post)
             return {'status': 'success'}
+    logging.warning(f'Post with id {id} not found')
     raise HTTPException(status_code=404, detail='Post not found')
 
 @app.put('/blog/{id}')
@@ -51,12 +61,14 @@ def update_blog_post(id: int, data: dict):
                 post.title = data['title']
                 post.content = data['content']
                 return {'status': 'success'}
+        logging.warning(f'Post with id {id} not found')
         raise HTTPException(status_code=404, detail='Post not found')
     except KeyError:
+        logging.error('Invalid request')
         raise HTTPException(status_code=400, detail='Invalid request')
     except Exception as e:
+        logging.error(str(e))
         raise HTTPException(status_code=500, detail=str(e))
     
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=5000)
