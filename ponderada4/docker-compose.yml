@@ -69,6 +69,7 @@ services:
     depends_on:
       - auth
       - image_processor
+      - api
     networks:
       - service_network
 
@@ -83,6 +84,8 @@ services:
       POSTGRES_PASSWORD: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - service_network
       
   api:
       build: ./flask
@@ -92,6 +95,8 @@ services:
         - db
       volumes:
         - ./flask:/app
+      networks: 
+        - service_network
 
 networks:
   service_network:
