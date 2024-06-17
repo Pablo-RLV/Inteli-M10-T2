@@ -11,7 +11,7 @@ services:
     ports:
       - "5001:5001"
     volumes: 
-      - ./auth_service:/app
+      - ./auth:/app
     depends_on:
       - mysql
       - redis
@@ -28,7 +28,7 @@ services:
     ports:
       - "5002:5002"
     volumes: 
-      - ./image_service:/app
+      - ./image:/app
     networks:
       - service_network
 
@@ -72,6 +72,28 @@ services:
     networks:
       - service_network
 
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      
+  api:
+      build: ./flask
+      ports:
+        - 5000:5000
+      depends_on:
+        - db
+
 networks:
   service_network:
     driver: bridge
+
+volumes:
+  postgres_data:

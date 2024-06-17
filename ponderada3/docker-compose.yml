@@ -11,7 +11,7 @@ services:
     ports:
       - "5001:5001"
     volumes: 
-      - ./auth_service:/app
+      - ./auth:/app
     depends_on:
       - mysql
       - redis
@@ -28,7 +28,7 @@ services:
     ports:
       - "5002:5002"
     volumes: 
-      - ./image_service:/app
+      - ./image:/app
     networks:
       - service_network
 
